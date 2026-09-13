@@ -1,0 +1,79 @@
+import React, { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+// Pages
+import Home from "./pages/Home";
+import Cars from "./pages/Cars";
+import AboutPage from "./pages/AboutPage";
+import Booking from "./pages/Booking";
+import Admin from "./pages/Admin";
+import Checkout from "./pages/Checkout";
+
+// Context Providers
+import { CartProvider } from "./context/CartContext";
+import { ProductProvider } from "./context/ProductContext";
+import { OrderProvider } from "./context/OrderContext";
+
+const App = () => {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
+
+  const element = document.documentElement;
+
+  useEffect(() => {
+    if (theme === "dark") {
+      element.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      element.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [theme]);
+
+  useEffect(() => {
+    AOS.init({
+      offset: 100,
+      duration: 800,
+      easing: "ease-in-sine",
+      delay: 100,
+      once: true,
+    });
+
+    AOS.refresh();
+  }, []);
+
+  return (
+    <ProductProvider>
+      <OrderProvider>
+        <CartProvider>
+          <div className="min-h-screen w-full bg-white text-black dark:bg-black dark:text-white overflow-x-hidden">
+            <Navbar theme={theme} setTheme={setTheme} />
+            <main className="w-full pt-20">
+              <Routes>
+                <Route path="/" element={<Home theme={theme} />} />
+                <Route path="/cars" element={<Cars theme={theme} />} />
+                <Route path="/about" element={<AboutPage theme={theme} />} />
+                <Route path="/booking" element={<Booking theme={theme} />} />
+                
+                {/* ✅ Admin route ab secret URL par hai */}
+                <Route path="/admin-panel-secret" element={<Admin theme={theme} />} />
+                
+                <Route path="/checkout" element={<Checkout theme={theme} />} />
+              </Routes>
+            </main>
+            <Footer theme={theme} />
+          </div>
+        </CartProvider>
+      </OrderProvider>
+    </ProductProvider>
+  );
+};
+
+export default App;
