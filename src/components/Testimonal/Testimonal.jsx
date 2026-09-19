@@ -1,48 +1,68 @@
 import React from 'react'
+import { FaQuoteRight } from 'react-icons/fa'
 
 const testimonialData = [
     {
-      name: "Dilshad",
-      image: "",
-      description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-      aosDelay: "0",
+      name: "Dilshad Ahmed",
+      role: "Business Traveler",
+      description: "The booking process was effortless and the car was immaculate. This is how car rental should work.",
     },
     {
-      name: "Satya",
-      image: "",
-      description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-      aosDelay: "300",
+      name: "Satya Verma",
+      role: "Weekend Explorer",
+      description: "Transparent pricing, no surprises at pickup. The BMW was spotless and drove like a dream.",
     },
     {
-      name: "Sabir",
-      image: "",
-      description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-      aosDelay: "1000",
+      name: "Sabir Khan",
+      role: "Family Vacationer",
+      description: "Booked a KIA for a week-long trip. Great condition, easy pickup, and the support team was fantastic.",
     },
 ];
 
-const Testimonal = ({theme}) => {
+const Testimonal = ({ theme }) => {
   return (
-    <div className={`w-full py-14 sm:pb-24 ${
-      theme === "dark" 
-      ? "bg-black text-white" 
-      : "bg-white text-black"
+    <div className={`w-full py-20 sm:py-28 ${
+      theme === "dark" ? "bg-black text-white" : "bg-white text-black"
     }`}>
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className='space-y-4 pb-12'>
-          <p data-aos="fade-up" className='text-3xl font-semibold text-center sm:text-4xl font-serif'>What Our Clients Say About Us</p>
-          <p data-aos="fade-up" className='text-center sm:px-44'>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
+        <div className="max-w-2xl mb-14">
+          <p className="text-yellow-500 text-xs font-semibold tracking-[0.2em] uppercase mb-3">
+            Testimonials
+          </p>
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight leading-[1.05]">
+            Loved by travelers<br />
+            <span className="italic font-medium opacity-60">across the country.</span>
+          </h2>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-8'>
-          {testimonialData.map((data) => (
-            <div data-aos="fade-up" data-aos-delay={data.aosDelay} key={data.name} className='card text-center group space-y-3 sm:space-y-6 p-4 bg-gray-100 dark:bg-white/20 sm:py-12 duration-300 rounded-lg'>
-              <div className='grid place-items-center'>
-                <img src="https://picsum.photos/seed/1/200/200" alt="" className='h-20 w-20 rounded-full' />
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          {testimonialData.map((data, i) => (
+            <div
+              key={data.name}
+              data-aos="fade-up"
+              data-aos-delay={i * 150}
+              className={`group relative p-8 rounded-3xl border transition-all duration-500 hover:-translate-y-2 ${
+                theme === 'dark'
+                  ? 'border-white/10 bg-gradient-to-b from-white/[0.03] to-transparent hover:border-yellow-500/40'
+                  : 'border-black/10 bg-gradient-to-b from-black/[0.02] to-transparent hover:border-yellow-500/40'
+              }`}
+            >
+              <FaQuoteRight className="text-yellow-500/20 text-3xl mb-6" />
+
+              <p className="text-base leading-relaxed mb-8">
+                "{data.description}"
+              </p>
+
+              <div className="flex items-center gap-3 pt-6 border-t border-current/10">
+                <div className="w-11 h-11 rounded-full bg-yellow-500 text-black flex items-center justify-center font-bold font-serif">
+                  {data.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-semibold text-sm">{data.name}</p>
+                  <p className="text-xs opacity-50">{data.role}</p>
+                </div>
               </div>
-              <div className='text-4xl'>⭐⭐⭐⭐⭐</div>
-              <p>{data.description}</p>
-              <p className='font-semibold text-center'>{data.name}</p>
             </div>
           ))}
         </div>

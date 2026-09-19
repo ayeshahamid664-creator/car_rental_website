@@ -1,51 +1,71 @@
 import React from 'react'
-
-import { FaCameraRetro } from "react-icons/fa";
-import { GiNotebook } from "react-icons/gi";
-import { SlNote } from "react-icons/sl";
+import { FaTag, FaShieldAlt, FaUserTie, FaArrowRight } from "react-icons/fa";
 
 const skillsData = [
     {
         name: "Best Price",
-        icon: <FaCameraRetro className="text-5xl text-yellow-500 group-hover:text-black duration-300" />,
-        link: "#",
-        description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-        aosDelay: "100",
+        icon: <FaTag />,
+        description: "Transparent pricing with no hidden fees. What you see is what you pay.",
     },
     {
-        name: "Fast and Safe",
-        icon: <GiNotebook className="text-5xl text-yellow-500 group-hover:text-black duration-300" />,
-        link: "#",
-        description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-        aosDelay: "500",
+        name: "Fast & Safe",
+        icon: <FaShieldAlt />,
+        description: "Fully insured vehicles, sanitized before every trip, delivered on time.",
     },
     {
-        name: "Experience Drivers",
-        icon: <SlNote className="text-5xl text-yellow-500 group-hover:text-black duration-500" />,
-        link: "#",
-        description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-        aosDelay: "1000",
+        name: "Expert Drivers",
+        icon: <FaUserTie />,
+        description: "Optional professional chauffeurs for a relaxed, comfortable journey.",
     },
 ];
 
-const Services = ({theme}) => {
+const Services = ({ theme }) => {
   return (
-    <div className={`w-full py-14 sm:min-h-[600px] sm:grid sm:place-items-center ${
-      theme === "dark" 
-      ? "bg-black text-white" 
-      : "bg-white text-black"
+    <div className={`w-full py-20 sm:py-28 ${
+      theme === "dark" ? "bg-black text-white" : "bg-white text-black"
     }`}>
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className='pb-12'>
-          <h1 className='text-3xl font-semibold text-center font-serif sm:text-4xl'>Why Choose Us</h1>
+
+        {/* Section header */}
+        <div className="max-w-2xl mb-14">
+          <p className="text-yellow-500 text-xs font-semibold tracking-[0.2em] uppercase mb-3">
+            Why Choose Us
+          </p>
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight leading-[1.05]">
+            Built for people who<br />
+            <span className="italic font-medium opacity-60">value their time.</span>
+          </h2>
         </div>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-          {skillsData.map((skill) => (
-            <div key={skill.name} data-aos="fade-up" data-aos-delay={skill.aosDelay} className='card text-center group space-y-3 sm:space-y-6 p-4 sm:py-16 bg-black hover:bg-yellow-500 duration-300 text-white hover:text-black rounded-lg'>
-              <div className='grid place-items-center'>  {skill.icon} </div>
-              <h1>{skill.name}</h1>
-              <p> {skill.description} </p>
-              <a href={skill.link} className='text-yellow-500 group-hover:text-white duration-300'>Learn More</a>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          {skillsData.map((skill, i) => (
+            <div
+              key={skill.name}
+              data-aos="fade-up"
+              data-aos-delay={i * 150}
+              className={`group relative p-8 rounded-3xl border transition-all duration-500 hover:-translate-y-2 ${
+                theme === 'dark'
+                  ? 'border-white/10 bg-gradient-to-b from-white/[0.03] to-transparent hover:border-yellow-500/40'
+                  : 'border-black/10 bg-gradient-to-b from-black/[0.02] to-transparent hover:border-yellow-500/40'
+              }`}
+            >
+              {/* Icon */}
+              <div className="w-14 h-14 rounded-2xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center text-xl mb-6 group-hover:bg-yellow-500 group-hover:text-black transition-all duration-500">
+                {skill.icon}
+              </div>
+
+              <h3 className="font-serif text-2xl font-bold tracking-tight mb-3">
+                {skill.name}
+              </h3>
+
+              <p className="text-sm leading-relaxed opacity-70 mb-6">
+                {skill.description}
+              </p>
+
+              <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-yellow-500">
+                Learn more
+                <FaArrowRight size={10} className="group-hover:translate-x-1 transition-transform" />
+              </div>
             </div>
           ))}
         </div>
